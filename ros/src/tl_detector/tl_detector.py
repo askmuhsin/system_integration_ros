@@ -1,19 +1,19 @@
 #!/usr/bin/env python
 
-from styx_msgs.msg import TrafficLightArray, TrafficLight, Waypoint
-from light_classification.tl_classifier import TLClassifier
-from geometry_msgs.msg import PoseStamped, Pose
-from timeit import default_timer as timer
-from sensor_msgs.msg import Image
-from styx_msgs.msg import Lane
-from std_msgs.msg import Int32
-from cv_bridge import CvBridge
 import rospy
-import yaml
-import time
-import math
-import sys
+from std_msgs.msg import Int32
+from geometry_msgs.msg import PoseStamped, Pose
+from styx_msgs.msg import TrafficLightArray, TrafficLight, Waypoint
+from styx_msgs.msg import Lane
+from sensor_msgs.msg import Image
+from cv_bridge import CvBridge
+from light_classification.tl_classifier import TLClassifier
+from timeit import default_timer as timer
 import tf
+import yaml
+import sys
+import math
+import time
 
 STATE_COUNT_THRESHOLD = 3
 UNKNOWN = -1
@@ -58,6 +58,53 @@ class TLDetector(object):
         self.state_count = 0
 
         rospy.spin()
+
+## _____________________________________________________________________________
+    def pose_cb(self, msg):
+        self.pose = msg
+
+## _____________________________________________________________________________
+    def waypoints_cb(self, waypoints):
+        self.waypoints = waypoints
+
+## _____________________________________________________________________________
+    def traffic_cb(self, msg):
+        self.lights = msg.lights
+
+## _____________________________________________________________________________
+    def image_cb(self, msg):
+        """Identifies red lights in the incoming camera image and publishes the index
+            of the waypoint closest to the red light's stop line to /traffic_waypoint
+        Args:
+            msg (Image): image from car-mounted camera
+        """
+        if self.image_processing_time > 0:
+            self.image_processing_time -= 0.1
+            return
+
+        self.has_image = True
+        self.camera_image = msg
+        start_detection = timer()
+        light_wp, state = self.process_traffic_lights()
+        self.image_processing_time = timer() - start_detection
+
+        '''
+        Publish upcoming red lights at camera frequency.
+        Each predicted state has to occur `STATE_COUNT_THRESHOLD` number
+        of times till we start using it. Otherwise the previous stable state is
+        used.
+        '''
+        if self.state != state:
+            self.state_count = 0
+            self.state = state
+        elif self.state_count >= STATE_COUNT_THRESHOLD:
+            self.last_state = self.state
+            light_wp = light_wp if state == TrafficLight.RED else -1
+            self.last_wp = light_wp
+            self.upcoming_red_light_pub.publish(Int32(light_wp))
+        else:
+            self.upcoming_red_light_pub.publish(Int32(self.last_wp))
+        self.state_count += 1
 
 ## _____________________________________________________________________________
     def get_light_state(self, light):
@@ -162,53 +209,6 @@ class TLDetector(object):
                 idx = n
         return idx
 
-## Callbacks
-## _____________________________________________________________________________
-    def pose_cb(self, msg):
-        self.pose = msg
-
-## _____________________________________________________________________________
-    def waypoints_cb(self, waypoints):
-        self.waypoints = waypoints
-
-## _____________________________________________________________________________
-    def traffic_cb(self, msg):
-        self.lights = msg.lights
-
-## _____________________________________________________________________________
-    def image_cb(self, msg):
-        """Identifies red lights in the incoming camera image and publishes the index
-            of the waypoint closest to the red light's stop line to /traffic_waypoint
-        Args:
-            msg (Image): image from car-mounted camera
-        """
-        if self.image_processing_time > 0:
-            self.image_processing_time -= 0.1
-            return
-
-        self.has_image = True
-        self.camera_image = msg
-        start_detection = timer()
-        light_wp, state = self.process_traffic_lights()
-        self.image_processing_time = timer() - start_detection
-
-        '''
-        Publish upcoming red lights at camera frequency.
-        Each predicted state has to occur `STATE_COUNT_THRESHOLD` number
-        of times till we start using it. Otherwise the previous stable state is
-        used.
-        '''
-        if self.state != state:
-            self.state_count = 0
-            self.state = state
-        elif self.state_count >= STATE_COUNT_THRESHOLD:
-            self.last_state = self.state
-            light_wp = light_wp if state == TrafficLight.RED else -1
-            self.last_wp = light_wp
-            self.upcoming_red_light_pub.publish(Int32(light_wp))
-        else:
-            self.upcoming_red_light_pub.publish(Int32(self.last_wp))
-        self.state_count += 1
 
 if __name__ == '__main__':
     try:
