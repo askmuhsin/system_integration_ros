@@ -51,10 +51,9 @@ class WaypointUpdater(object):
 
         self.loop()     ## <<ROUTE 2>>
 
-
 ## _____________________________________________________________________________
     def loop(self):
-        rate = rospy.Rate(10)
+        rate = rospy.Rate(50.0)
         while not rospy.is_shutdown():
             self.publish_waypoints()        ## <<ROUTE 3>>
             rate.sleep()
@@ -87,7 +86,6 @@ class WaypointUpdater(object):
 
         else:
             rospy.logerr("*** publish_waypoints : UNKNOWN state ***")
-
 
         ## Machine state logic
         if self.state_change:
