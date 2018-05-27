@@ -72,6 +72,7 @@ class DBWNode(object):
 
         self.loop()     ## <<ROUTE 2>>
 
+## _____________________________________________________________________________
     def loop(self):
         rate = rospy.Rate(50.0)
         while not rospy.is_shutdown():
@@ -80,26 +81,32 @@ class DBWNode(object):
             time = cur_time - self.prev_time
             self.prev_time = cur_time
 
-            if not None in (self.dbw_enabled, self.current_velocity, self.twist_cmd) and self.dbw_enabled:
+            if not None in (self.dbw_enabled,
+                            self.current_velocity,
+                            self.twist_cmd) and self.dbw_enabled:
                 throttle, brake, steering = self.controller.control(self.twist_cmd,
-                                                                    self.current_velocity,
-                                                                    time.to_sec())
+                                                        self.current_velocity,
+                                                        time.to_sec())
                 if self.dbw_enabled:
                     self.publish(throttle, brake, steering)
 
             rate.sleep()
 
+## _____________________________________________________________________________
     def velocity_cb(self, msg):
         self.current_velocity = msg
 
+## _____________________________________________________________________________
     def twist_cb(self, msg):
         self.twist_cmd = msg
 
+## _____________________________________________________________________________
     def dbw_enabled_cb(self, msg):
         if msg:
             self.controller.reset()
         self.dbw_enabled = msg.data
 
+## _____________________________________________________________________________
     def publish(self, throttle, brake, steer):
         tcmd = ThrottleCmd()
         tcmd.enable = True

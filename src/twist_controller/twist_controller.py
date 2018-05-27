@@ -29,7 +29,7 @@ class Controller(object):
         self.total_mass = vehicle_mass + (fuel_capacity * GAS_DENSITY)
         self.wheel_radius = wheel_radius
         self.deceleration_limit = deceleration_limit
-
+## _____________________________________________________________________________
     def control(self, twist_cmd, current_velocity, time_span):
         # vel_filt_linear_x = self.vel_lpf.filt(current_velocity.twist.linear.x)
         # velocity_error = twist_cmd.twist.linear.x - vel_filt_linear_x
@@ -52,6 +52,6 @@ class Controller(object):
                 return acceleration, 0., steer
             else:
                 return 0., -torque, steer
-
+## _____________________________________________________________________________
     def reset(self):
         self.velocity_controller.reset()
