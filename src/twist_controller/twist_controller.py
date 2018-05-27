@@ -4,6 +4,7 @@ from lowpass import LowPassFilter
 import yaw_controller
 from pid import PID
 import numpy as np
+import rospy
 
 GAS_DENSITY = 2.858
 
@@ -12,6 +13,9 @@ class Controller(object):
     def __init__(self, vehicle_mass, fuel_capacity, acceleration_limit,
                 deceleration_limit, wheel_base, wheel_radius, steer_ratio,
                  max_lat_acceleration, max_steer_angle, min_speed):
+
+        # rospy.logwarn("*** accel_limit {} ***".format(acceleration_limit))
+
         kp, ki, kd = 2.0, 0.005, 0            # pid params
         mn, mx = deceleration_limit, acceleration_limit # acceleration limit
         tau = 0.5   # 1/(2*pi*tau) = cutoff frequency

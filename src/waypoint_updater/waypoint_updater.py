@@ -44,10 +44,14 @@ class WaypointUpdater(object):
         self.number_of_waypoints = None
         self.final_waypoints = None
 
-        self.acceleration_limit_in_mps = rospy.get_param('~accel_limit', 1.)
+        # self.acceleration_limit_in_mps = rospy.get_param('~accel_limit', 1.)
         self.deceleration_limit_max_in_mps = -rospy.get_param('~decel_limit', -5.)
         self.deceleration_limit_min_in_mps = min(1.0, -rospy.get_param('~decel_limit', -5.) / 2.)
         self.max_velocity_in_mps = rospy.get_param('/waypoint_loader/velocity') / 3.6
+        self.acceleration_limit_in_mps = 2.0
+
+        # rospy.logwarn("*** max_velocity_in_mps {} ***".format(self.max_velocity_in_mps))
+        rospy.logwarn("*** acceleration_limit_in_mps {} ***".format(self.acceleration_limit_in_mps))
 
         self.loop()     ## <<ROUTE 2>>
 
