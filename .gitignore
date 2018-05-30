@@ -2,5 +2,7 @@
 
 build
 devel
+ros/traffic_light_bag_file
+ros/default.rviz
 
 profile.tmp
