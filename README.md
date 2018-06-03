@@ -95,6 +95,5 @@ I changed LOOKAHEAD_WPS from to 50 in the final submission to reduce the computa
 
 ---
 ### Results   
-[[[https://github.com/askmuhsin/system_integration_ros/blob/master/imgs/lap_pic_youtube.png]]](https://youtu.be/L35UgI55J_k)
 Video link of full lap ride in highway -->  [link_highway](https://youtu.be/L35UgI55J_k)       
 Video link of full lap ride in udacity lot -->  [link_lot](https://youtu.be/GNqRoENU62I)       
