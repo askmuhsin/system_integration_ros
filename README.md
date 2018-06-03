@@ -1,4 +1,20 @@
-This is the project repo for the final project of the Udacity Self-Driving Car Nanodegree: Programming a Real Self-Driving Car. For more information about the project, see the project introduction [here](https://classroom.udacity.com/nanodegrees/nd013/parts/6047fe34-d93c-4f50-8336-b70ef10cb4b2/modules/e1a23b06-329a-4684-a717-ad476f0d8dff/lessons/462c933d-9f24-42d3-8bdc-a08a5fc866e4/concepts/5ab4b122-83e6-436d-850f-9f4d26627fd9).
+This is the project repo for the final project of the Udacity Self-Driving Car Nanodegree: Programming a Real Self-Driving Car.     
+![Carla]()
+
+---
+## Udacity self-driving Car Capstone Project : System Integration
+This project is done as team effort and marks the end of a nine month intensive effort on getting a **real self-driving car** to navigate autonomously, utilising several onboard sensors (cameras, lidars, radars), sensor fusion and path planning algorithms, machine learning modules, and a lot of hard work. Special thanks to my team members!     
+
+## Project Team Members of "No-LEFT-TURN"
+|Name              |Udacity Account Email Address|
+|------------------|-----------------------------|
+|Sahil Bahl*       |bahlsahil28@gmail.com        |
+|Akiyuki Ishikawa  |aki.y.ishikawa@gmail.com     |
+|Muhsin Mohammed   |askmuhsin@gmail.com          |
+|Wei-Fen Lin       |weifen@mijotech.net          |       
+*Team lead
+
+---
 
 Please use **one** of the two installation options, either native **or** docker installation.
 
