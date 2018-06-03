@@ -18,25 +18,25 @@ This project is done as team effort and marks the end of a nine month intensive 
 
 ---
 ### Recommended Setup and Usage
-Clone the project repository
+* Clone the project repository
 ```bash
 git clone https://github.com/udacity/CarND-Capstone.git
 ```
 
-##### Docker Installation
+* Install Docker
 [Install Docker](https://docs.docker.com/engine/installation/)
 
-Build the docker container
+* Build the docker container
 ```bash
 docker build . -t capstone
 ```
 
-Run the docker file
+* Run the docker file
 ```bash
 docker run -p 4567:4567 -v $PWD:/capstone -v /tmp/log:/root/.ros/ --rm -it capstone
 ```
 
-Make and run styx
+* Make and run styx
 ```bash
 cd ros
 catkin_make
@@ -45,7 +45,7 @@ roslaunch launch/styx.launch
 OR
 ./run.sh
 ```
-Run the simulator     
+* Run the simulator     
 Download the [Udacity Simulator](https://github.com/udacity/CarND-Capstone/releases).
 
 **For instructions on native installation click [here](https://github.com/askmuhsin/system_integration_ros/blob/master/imgs/additional_info.md).**
