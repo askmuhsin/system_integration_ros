@@ -45,7 +45,8 @@ roslaunch launch/styx.launch
 OR
 ./run.sh
 ```
-4. Run the simulator    
+Run the simulator     
+Download the [Udacity Simulator](https://github.com/udacity/CarND-Capstone/releases).
 
 **For instructions on native installation click [here](https://github.com/askmuhsin/system_integration_ros/blob/master/imgs/additional_info.md).**
 
