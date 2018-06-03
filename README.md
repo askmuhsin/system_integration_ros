@@ -50,6 +50,7 @@ Download the [Udacity Simulator](https://github.com/udacity/CarND-Capstone/relea
 
 **For instructions on native installation click [here](https://github.com/askmuhsin/system_integration_ros/blob/master/imgs/additional_info.md).**
 
+---
 ### Real world testing
 1. Download [training bag](https://s3-us-west-1.amazonaws.com/udacity-selfdrivingcar/traffic_light_bag_file.zip) that was recorded on the Udacity self-driving car.
 2. Unzip the file
@@ -67,6 +68,7 @@ roslaunch launch/site.launch
 ```
 5. Confirm that traffic light detection works on real life images
 
+---
 ### Discussion
 Core autonomous vehicle features of the project is written as ROS nodes which is included but not limited to: traffic light detection, control, and waypoint following from stored map. The ROS nodes and topics for this project are as follows:   
 ![ros_graph](https://github.com/askmuhsin/system_integration_ros/blob/master/imgs/final-project-ros-graph-v2.png)   
@@ -91,7 +93,8 @@ I changed LOOKAHEAD_WPS from to 50 in the final submission to reduce the computa
   The tasks for this package were broken into two parts. In the first part, we need to implement the tl_detector.py module. The walkthrough section gives enough details to implement this module. What is not mentioned in the walkthrough code is the second part, to build a traffic light classifier. Most people used the tensorflow object dection API for this project. There is a very good reference from Alex Lechner at https://github.com/alex-lechner/Traffic-Light-Classification. It gives a detailed tutorial on how to build a traffic light classifier in this project. I followed the same methodoligy to test a couple of pre-trained models in the tensowflow library.
   I end up using the SSD Inception V2 model for this project. Two seperate models are trained for simulator and real-world testing. Both models were trained for 20,000 steps.
 
-### Results
-![Short_lap](https://media.giphy.com/media/88jh47n3cxbYMj0ufb/giphy.gif)     
+---
+### Results   
+[[[https://github.com/askmuhsin/system_integration_ros/blob/master/imgs/lap_pic_youtube.png]]](https://youtu.be/L35UgI55J_k)
 Video link of full lap ride in highway -->  [link_highway](https://youtu.be/L35UgI55J_k)       
 Video link of full lap ride in udacity lot -->  [link_lot](https://youtu.be/GNqRoENU62I)       
