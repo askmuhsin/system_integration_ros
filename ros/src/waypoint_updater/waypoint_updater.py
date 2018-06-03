@@ -110,6 +110,7 @@ class WaypointUpdater(object):
         self.final_waypoints = lane.waypoints
         self.final_waypoints_pub.publish(lane)
 
+
 ## _____________________________________________________________________________
     def get_closest_waypoint_idx(self):
         minimal_distance = sys.maxint
